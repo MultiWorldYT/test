@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Liquid Glass Button</title>
+<title>Liquid Glass Slider</title>
 <style>
 body {
   display: flex;
@@ -10,29 +10,70 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
-  background: url('https://via.placeholder.com/800') no-repeat center center/cover;
+  /* Fondo en degradado para apreciar el efecto "liquid glass" */
+  background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+  background-size: 400% 400%;
+  animation: moverFondo 20s ease infinite;
+  font-family: sans-serif;
 }
 
-.button-glass {
-  padding: 20px 40px;
-  font-size: 1.2em;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
+.switch {
+  position: relative;
+  width: 80px;
+  height: 40px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
+  border-radius: 40px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
   transition: background 0.3s;
 }
 
-.button-glass:hover {
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 32px;
+  width: 32px;
+  left: 4px;
+  top: 4px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+input:checked + .slider {
   background: rgba(255, 255, 255, 0.3);
+}
+
+input:checked + .slider:before {
+  transform: translateX(40px);
+}
+
+@keyframes moverFondo {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 </style>
 </head>
 <body>
-<button class="button-glass">Presiona aquí</button>
+<label class="switch">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label>
 </body>
 </html>
